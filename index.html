@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A local-first exploratory dashboard for public Bluesky discourse about Disco Elysium.">
+  <title>Disco Elysium · Bluesky discourse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="brand-mark">DE</span><span>FIELD NOTES <span class="brand-slash">/</span> BLUESKY</span></a>
+    <span class="live-tag"><span></span> RESEARCH PREVIEW</span>
+  </header>
+  <main id="top">
+    <section class="hero">
+      <p class="eyebrow">A discourse observatory <span>—</span> Bluesky public posts</p>
+      <h1>Reading the <em>politics</em><br>of Revachol.</h1>
+      <div class="hero-bottom">
+        <p class="intro">An exploratory view of how people discuss politics, identity, and culture through <i>Disco Elysium</i>.</p>
+        <label class="upload-button" for="file-input">↥ &nbsp; Import collection</label>
+        <input id="file-input" type="file" accept="application/json,.json" hidden>
+      </div>
+      <div class="notice"><span class="notice-icon">i</span><p><strong>Research caution.</strong> Topic labels and sentiment are heuristic estimates, not validated measures. Posts are public, but public does not mean risk-free: avoid sharing searchable quotes. Account labels are run-local pseudonyms and do not guarantee anonymity.</p><button id="dismiss-notice" aria-label="Dismiss notice">×</button></div>
+    </section>
+
+    <section class="toolbar" aria-label="Dashboard filters">
+      <div><label for="topic-filter">TOPIC</label><select id="topic-filter"><option value="all">All topics</option></select></div>
+      <div><label for="sentiment-filter">SENTIMENT</label><select id="sentiment-filter"><option value="all">All sentiment</option><option value="positive">Positive</option><option value="neutral">Neutral</option><option value="negative">Negative</option></select></div>
+      <div><label for="range-filter">TIME WINDOW</label><select id="range-filter"><option value="all">All dates</option><option value="90">Last 90 days</option><option value="365">Last 12 months</option></select></div>
+      <button id="demo-button" class="text-button">Load demo data ↗</button>
+      <span id="data-status" class="status">Synthetic demo data</span>
+    </section>
+
+    <section class="metrics" aria-label="Collection summary">
+      <article class="metric"><span class="metric-label">POSTS IN VIEW</span><strong id="metric-posts">—</strong><span class="metric-sub">matching current filters</span></article>
+      <article class="metric"><span class="metric-label">UNIQUE PSEUDONYMS</span><strong id="metric-authors">—</strong><span class="metric-sub">run-local labels only</span></article>
+      <article class="metric"><span class="metric-label">TOPIC COVERAGE</span><strong id="metric-topics">—</strong><span class="metric-sub">categories represented</span></article>
+      <article class="metric"><span class="metric-label">AVG. SENTIMENT</span><strong id="metric-sentiment">—</strong><span class="metric-sub">lexicon score · −1 to +1</span></article>
+    </section>
+
+    <section class="chart-grid">
+      <article class="panel topic-panel"><div class="panel-heading"><div><p class="eyebrow">01 / THE CONVERSATION</p><h2>Topic landscape</h2></div><span class="panel-note">Overlapping keyword categories</span></div><div id="topic-chart" class="chart" role="img" aria-label="Bar chart of post counts by topic"></div></article>
+      <article class="panel sentiment-panel"><div class="panel-heading"><div><p class="eyebrow">02 / THE TONE</p><h2>Sentiment mix</h2></div><span class="panel-note">Lexicon-based estimate</span></div><div id="sentiment-chart" class="chart" role="img" aria-label="Chart of sentiment categories"></div></article>
+      <article class="panel timeline-panel"><div class="panel-heading"><div><p class="eyebrow">03 / THE TIMELINE</p><h2>Posts over time</h2></div><span class="panel-note">UTC · daily</span></div><div id="timeline-chart" class="chart" role="img" aria-label="Timeline of posts by day"></div></article>
+      <article class="panel note-panel"><p class="eyebrow">READING THE DATA</p><h2>Useful, not definitive.</h2><p>Keyword groups overlap: a post may touch several themes. Sentiment is a lightweight English word-list score and can miss irony, context, and reclaimed language. Treat both as prompts for human interpretation—not labels of people or proof of consensus.</p><div class="legend"><span><i class="dot positive"></i> Positive</span><span><i class="dot neutral"></i> Neutral</span><span><i class="dot negative"></i> Negative</span></div></article>
+    </section>
+
+    <section class="panel posts-panel"><div class="panel-heading"><div><p class="eyebrow">04 / THE SAMPLE</p><h2>Post excerpts</h2></div><span class="panel-note">Private local view · pseudonyms only</span></div><div class="table-wrap"><table><thead><tr><th>POST / EXCERPT</th><th>TOPIC TAGS</th><th>SENTIMENT</th><th>DATE</th><th>AUTHOR</th></tr></thead><tbody id="posts-table"></tbody></table></div><p class="table-footnote">Excerpts are displayed locally for analysis. Do not publish verbatim text without considering re-identification risk.</p></section>
+    <footer><span>FIELD NOTES · DISCO ELYSIUM × BLUESKY</span><span>LOCAL-FIRST · EXPLORATORY · NOT A CENSUS</span></footer>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="app.js"></script>
+</body>
+</html>
