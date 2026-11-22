@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#141915">
+    <title>Disco Elysium | Bluesky discourse</title>
+  </head>
+  <body>
+    <header class="masthead"><div class="wrap masthead-inner"><span>DISCOURSE ATLAS</span><span>BLUESKY RESEARCH</span></div></header>
+    <main class="wrap">
+      <section class="hero">
+        <p class="eyebrow" id="source" role="status">Loading research data</p>
+        <h1>Disco Elysium<br><em>on Bluesky</em></h1>
+        <p class="intro">A study of the political, social, and cultural conversations around the game.</p>
+      </section>
+      <div id="error" role="alert" hidden></div>
+      <div id="dashboard" hidden>
+        <section class="controls" aria-label="Filters">
+          <label>Research lens<select id="lens"></select></label>
+          <label>Month<select id="month"></select></label>
+          <p id="window"></p>
+        </section>
+        <section class="metrics" aria-label="Summary" aria-live="polite">
+          <div><strong id="posts"></strong><span>Posts in view</span></div>
+          <div><strong id="accounts"></strong><span>Accounts in full sample</span></div>
+          <div><strong id="topics"></strong><span>Modeled topics in view</span></div>
+        </section>
+        <div class="grid">
+          <section class="panel">
+            <h2>Sentiment by topic</h2>
+            <p>Posts grouped by their strongest modeled topic.</p>
+            <div class="legend" aria-label="Sentiment legend"></div>
+            <div id="topic-chart"></div>
+          </section>
+          <section class="panel">
+            <h2>Conversation over time</h2>
+            <p>Monthly post volume by sentiment.</p>
+            <div class="legend" aria-label="Sentiment legend"></div>
+            <div id="timeline"></div>
+          </section>
+        </div>
+        <section class="panel lens-panel">
+          <h2>Research lenses</h2>
+          <p>Keyword matches within the current view. A post can match multiple lenses.</p>
+          <div id="lens-chart"></div>
+        </section>
+        <details class="methods">
+          <summary>Methods and limitations</summary>
+          <p id="coverage"></p>
+          <p>Topics are estimated with TF-IDF and non-negative matrix factorization. Research lenses use keyword rules and may miss relevant posts or include incidental mentions.</p>
+          <p>VADER scores the tone of post text. Tone can miss irony, quotation, and game-specific slang, and cannot establish an author's beliefs, identity, or stance. The dashboard publishes aggregate counts and model terms.</p>
+        </details>
+      </div>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
