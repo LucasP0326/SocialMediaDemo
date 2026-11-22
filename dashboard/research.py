@@ -22,6 +22,10 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 ENDPOINT = "https://public.api.bsky.app/xrpc/app.bsky.feed.searchPosts"
 PDS = "https://bsky.social/xrpc"
+COMMUNITY_FEEDS = (
+    "at://did:plc:a2dpgfdjvuxxp5ni3hgd7wwi/app.bsky.feed.generator/discoelysium",
+    "at://did:plc:ivfdfi43xkc34brkhe2qtfec/app.bsky.feed.generator/aaamdxr5d2snk",
+)
 LENSES = {
     "Communism & labor": r"communis\w*|marxis\w*|socialis\w*|unions?|labor|labour|working class|class struggle",
     "Fascism & nationalism": r"fascis\w*|nationalis\w*|authoritarian\w*|supremac\w*",
@@ -124,6 +128,33 @@ def import_pages(paths):
     return list(posts.values()), {"importedPages": len(paths)}
 
 
+def collect_feeds(pages):
+    posts = {}
+    page_count = 0
+    for feed in COMMUNITY_FEEDS:
+        params = {"feed": feed, "limit": 100}
+        cursors = set()
+        for _ in range(pages):
+            url = f"https://public.api.bsky.app/xrpc/app.bsky.feed.getFeed?{urlencode(params)}"
+            with urlopen(url, timeout=25) as response:
+                payload = json.load(response)
+            page_count += 1
+            for item in payload["feed"]:
+                post = item["post"]
+                record = post["record"]
+                if "en" in record.get("langs", ()) and re.search(r"\bdisco[\s-]*elysium\b", record["text"], re.I):
+                    posts.setdefault(post["uri"], post)
+            cursor = payload.get("cursor")
+            if not cursor or cursor in cursors:
+                break
+            cursors.add(cursor)
+            params["cursor"] = cursor
+    return list(posts.values()), {
+        "communityFeeds": len(COMMUNITY_FEEDS), "pages": page_count,
+        "collectedOn": str(datetime.now(timezone.utc).date()),
+    }
+
+
 def demo_posts():
     themes = [
         ("communism labor unions class struggle solidarity workers", (
@@ -213,6 +244,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     source = parser.add_mutually_exclusive_group()
     source.add_argument("--demo", action="store_true", help="generate synthetic posts without API access")
+    source.add_argument("--community-feeds", action="store_true", help="collect from public Disco Elysium feeds")
     source.add_argument("--import-page", action="append", type=Path, metavar="JSON",
                         help="analyze a saved searchPosts response (repeat for multiple pages)")
     parser.add_argument("--since", type=date.fromisoformat)
@@ -233,6 +265,8 @@ def main():
             posts, search = demo_posts(), None
         elif args.import_page:
             posts, search = import_pages(args.import_page)
+        elif args.community_feeds:
+            posts, search = collect_feeds(args.pages)
         else:
             identifier = os.getenv("BLUESKY_HANDLE")
             app_password = os.getenv("BLUESKY_APP_PASSWORD")
@@ -242,6 +276,8 @@ def main():
                 token = create_session(identifier, app_password)
             posts, search = collect(since, until, args.pages, token)
     except HTTPError as error:
+        if args.community_feeds:
+            parser.exit(1, f"Bluesky community feed returned HTTP {error.code}.\n")
         hint = ""
         if error.code in (401, 403) and not token:
             hint = " Configure BLUESKY_HANDLE and BLUESKY_APP_PASSWORD for authenticated search."

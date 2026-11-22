@@ -90,10 +90,14 @@ function show(data) {
   const months = d3.utcMonth.range(first, last).map(d3.utcFormat("%Y-%m"));
   options(lens, data.lenses, "All lenses");
   options(month, months, "All months", key => monthName(monthDate(key)));
-  d3.select("#source").text(data.source === "synthetic" ? "Synthetic demo data" : "Public Bluesky search sample");
+  const fromFeeds = data.search?.communityFeeds;
+  d3.select("#source").text(data.source === "synthetic" ? "Synthetic demo data" :
+    fromFeeds ? "Public Bluesky community-feed sample" : "Public Bluesky search sample");
   d3.select("#window").text(`${data.since} to ${data.until} (end excluded · UTC)`);
   d3.select("#accounts").text(format(data.accounts));
-  d3.select("#coverage").text(data.search?.importedPages
+  d3.select("#coverage").text(fromFeeds
+    ? `Collected ${data.search.collectedOn} (UTC) from ${fromFeeds} Disco Elysium community feeds across ${data.search.pages} pages. ${format(data.candidates)} unique English-tagged candidate posts explicitly mentioned the game. Feed selection and the small sample limit what these results can say about the wider conversation.`
+    : data.search?.importedPages
     ? `Imported ${data.search.importedPages} Bluesky search response pages containing ${format(data.candidates)} unique candidate posts. Coverage depends on the queries, dates, and cursors used to collect those pages.`
     : data.search
     ? `Bluesky English-language search returned ${format(data.candidates)} unique candidate posts across ${data.search.queries} queries and ${data.search.pages} pages. ${data.search.queriesAtPageLimit} queries reached the configured page cap with more results available. Search indexing and query coverage limit the sample.`

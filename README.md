@@ -54,3 +54,15 @@ npm ci
 .venv/bin/python research.py --demo
 npm run dev
 ```
+
+### Community-feed sample
+
+A push that changes the Pages workflow or the checked-in aggregate deploys the verified community-feed snapshot in `dashboard/samples/`. Scheduled and manual runs try search first, then public Disco Elysium community feeds if search fails or produces an empty sample. The dashboard identifies the source and date range. Community feeds are curated samples.
+
+To reproduce a community-feed collection from `dashboard/`, run:
+
+```sh
+.venv/bin/python research.py --community-feeds --pages 8
+```
+
+Only the aggregate snapshot belongs in Git. It contains counts and topic terms.

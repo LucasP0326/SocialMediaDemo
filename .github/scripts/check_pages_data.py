@@ -11,10 +11,10 @@ if (
                      "accounts", "lenses", "topics", "cells"}
     or dataset["source"] != "bluesky"
     or not dataset["search"]
-    or dataset["search"].get("queries", 0) <= 0
+    or max(dataset["search"].get("queries", 0), dataset["search"].get("communityFeeds", 0)) <= 0
     or dataset["posts"] <= 0
 ):
-    sys.exit("Pages requires a nonempty live Bluesky search aggregate.")
+    sys.exit("Pages requires a nonempty aggregate from Bluesky search or community feeds.")
 
 count = 0
 for cell in dataset["cells"]:

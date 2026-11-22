@@ -1,0 +1,84 @@
+{
+  "source": "bluesky",
+  "since": "2025-07-01",
+  "until": "2026-11-23",
+  "search": {
+    "communityFeeds": 2,
+    "pages": 6,
+    "collectedOn": "2026-11-22"
+  },
+  "candidates": 46,
+  "posts": 5,
+  "accounts": 5,
+  "lenses": [
+    "Communism & labor",
+    "Fascism & nationalism",
+    "Race & racism",
+    "Gender & sexism",
+    "LGBTQ+ identities",
+    "Politics & culture"
+  ],
+  "topics": [
+    {
+      "id": 0,
+      "terms": [
+        "play",
+        "communist",
+        "good"
+      ]
+    },
+    {
+      "id": 1,
+      "terms": [
+        "zero",
+        "parades",
+        "good"
+      ]
+    }
+  ],
+  "cells": [
+    {
+      "month": "2026-05",
+      "topic": 0,
+      "lenses": [
+        "Communism & labor"
+      ],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-05",
+      "topic": 0,
+      "lenses": [
+        "Communism & labor",
+        "Fascism & nationalism"
+      ],
+      "counts": {
+        "negative": 1
+      }
+    },
+    {
+      "month": "2026-05",
+      "topic": 0,
+      "lenses": [
+        "LGBTQ+ identities",
+        "Politics & culture"
+      ],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-05",
+      "topic": 1,
+      "lenses": [
+        "Politics & culture"
+      ],
+      "counts": {
+        "positive": 1,
+        "neutral": 1
+      }
+    }
+  ]
+}
