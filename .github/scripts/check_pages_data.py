@@ -26,4 +26,12 @@ for cell in dataset["cells"]:
 
 if count != dataset["posts"]:
     sys.exit("Pages aggregate counts do not add up.")
+
+if len(sys.argv) > 2:
+    snapshot = json.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))
+    existing_years = {cell["month"][:4] for cell in snapshot["cells"]}
+    incoming_years = {cell["month"][:4] for cell in dataset["cells"]}
+    missing_years = sorted(existing_years - incoming_years)
+    if missing_years:
+        sys.exit(f"Refresh would drop years present in the snapshot: {', '.join(missing_years)}.")
 print(f"Verified aggregate of {count} Bluesky posts.")

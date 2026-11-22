@@ -53,15 +53,15 @@ jobs:
           BLUESKY_HANDLE: ${{ vars.BLUESKY_HANDLE }}
           BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
         run: |
-          if python research.py && python ../.github/scripts/check_pages_data.py public/research.json; then
+          if python research.py --since 2023-01-01 && python ../.github/scripts/check_pages_data.py public/research.json samples/bluesky-aggregate.json; then
             exit 0
           fi
           echo "::warning::Search did not yield a deployable sample. Trying public Disco Elysium community feeds."
-          python research.py --community-feeds --pages 8
+          python research.py --community-feeds --since 2023-01-01 --pages 16
       - name: Build project-relative Pages assets
         run: npm run build -- --base=./
       - name: Validate the public aggregate
-        run: python ../.github/scripts/check_pages_data.py dist/research.json
+        run: python ../.github/scripts/check_pages_data.py dist/research.json samples/bluesky-aggregate.json
       - name: Stage only dashboard assets
         uses: actions/upload-pages-artifact@v3
         with:

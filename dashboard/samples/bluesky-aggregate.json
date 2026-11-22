@@ -1,15 +1,15 @@
 {
   "source": "bluesky",
-  "since": "2025-07-01",
+  "since": "2023-01-01",
   "until": "2026-11-23",
   "search": {
-    "communityFeeds": 2,
-    "pages": 6,
+    "communityFeeds": 3,
+    "pages": 10,
     "collectedOn": "2026-11-22"
   },
-  "candidates": 46,
-  "posts": 5,
-  "accounts": 5,
+  "candidates": 248,
+  "posts": 15,
+  "accounts": 14,
   "lenses": [
     "Communism & labor",
     "Fascism & nationalism",
@@ -22,44 +22,48 @@
     {
       "id": 0,
       "terms": [
-        "play",
-        "communist",
-        "good"
+        "harrydubois",
+        "discoelysium",
+        "gay",
+        "fanart",
+        "art"
       ]
     },
     {
       "id": 1,
       "terms": [
+        "communist",
+        "play",
+        "kitsuragi",
+        "kim",
+        "like"
+      ]
+    },
+    {
+      "id": 2,
+      "terms": [
         "zero",
         "parades",
-        "good"
+        "good",
+        "trying",
+        "like"
       ]
     }
   ],
   "cells": [
     {
-      "month": "2026-05",
+      "month": "2025-01",
       "topic": 0,
       "lenses": [
-        "Communism & labor"
+        "LGBTQ+ identities"
       ],
       "counts": {
-        "positive": 1
+        "negative": 1,
+        "neutral": 1
       }
     },
     {
-      "month": "2026-05",
-      "topic": 0,
-      "lenses": [
-        "Communism & labor",
-        "Fascism & nationalism"
-      ],
-      "counts": {
-        "negative": 1
-      }
-    },
-    {
-      "month": "2026-05",
+      "month": "2025-01",
       "topic": 0,
       "lenses": [
         "LGBTQ+ identities",
@@ -70,13 +74,115 @@
       }
     },
     {
+      "month": "2025-03",
+      "topic": 0,
+      "lenses": [
+        "LGBTQ+ identities"
+      ],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-05",
+      "topic": 0,
+      "lenses": [
+        "LGBTQ+ identities"
+      ],
+      "counts": {
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2025-05",
+      "topic": 1,
+      "lenses": [
+        "LGBTQ+ identities"
+      ],
+      "counts": {
+        "negative": 1
+      }
+    },
+    {
+      "month": "2025-06",
+      "topic": 0,
+      "lenses": [
+        "LGBTQ+ identities"
+      ],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-10",
+      "topic": 1,
+      "lenses": [
+        "Communism & labor"
+      ],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
       "month": "2026-05",
       "topic": 1,
+      "lenses": [
+        "Communism & labor"
+      ],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-05",
+      "topic": 1,
+      "lenses": [
+        "Communism & labor",
+        "Fascism & nationalism"
+      ],
+      "counts": {
+        "negative": 1
+      }
+    },
+    {
+      "month": "2026-05",
+      "topic": 1,
+      "lenses": [
+        "LGBTQ+ identities",
+        "Politics & culture"
+      ],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-05",
+      "topic": 2,
       "lenses": [
         "Politics & culture"
       ],
       "counts": {
         "positive": 1,
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-09",
+      "topic": 1,
+      "lenses": [
+        "Communism & labor"
+      ],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-11",
+      "topic": 1,
+      "lenses": [
+        "LGBTQ+ identities"
+      ],
+      "counts": {
         "neutral": 1
       }
     }

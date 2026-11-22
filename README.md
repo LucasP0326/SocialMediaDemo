@@ -27,7 +27,7 @@ The page runs locally in the browser and does not upload data. Avoid publishing 
 
 ## GitHub Pages dashboard
 
-The published dashboard lives in `dashboard/`. It runs TF-IDF/NMF topic modeling and VADER sentiment scoring over a rolling 90-day English-language Bluesky search sample. The local prototype above remains available for private exploration. Pages receives only the built dashboard and the aggregate research dataset.
+The published dashboard lives in `dashboard/`. It runs TF-IDF/NMF topic modeling and VADER sentiment scoring over an English-language Bluesky sample with a collection window starting in 2023. The local prototype above remains available for private exploration. Pages receives only the built dashboard and the aggregate research dataset.
 
 1. Merge this change into `main`.
 2. In the repository's **Settings → Pages**, set **Build and deployment → Source** to **GitHub Actions**.
@@ -57,12 +57,12 @@ npm run dev
 
 ### Community-feed sample
 
-A push that changes the Pages workflow or the checked-in aggregate deploys the verified community-feed snapshot in `dashboard/samples/`. Scheduled and manual runs try search first, then public Disco Elysium community feeds if search fails or produces an empty sample. The dashboard identifies the source and date range. Community feeds are curated samples.
+A push that changes the Pages workflow or the checked-in aggregate deploys the verified community-feed snapshot in `dashboard/samples/`. Scheduled and manual runs try search first, then public Disco Elysium community feeds if search fails or produces an empty sample. The dashboard identifies the source and date range and groups the timeline by year. Select a year to inspect monthly counts. The displayed window can include years where no posts met the sample criteria. The October 2019 PC release predates Bluesky. Community feeds are curated samples.
 
 To reproduce a community-feed collection from `dashboard/`, run:
 
 ```sh
-.venv/bin/python research.py --community-feeds --pages 8
+.venv/bin/python research.py --community-feeds --since 2023-01-01 --pages 16
 ```
 
 Only the aggregate snapshot belongs in Git. It contains counts and topic terms.

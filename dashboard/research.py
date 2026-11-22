@@ -25,7 +25,9 @@ PDS = "https://bsky.social/xrpc"
 COMMUNITY_FEEDS = (
     "at://did:plc:a2dpgfdjvuxxp5ni3hgd7wwi/app.bsky.feed.generator/discoelysium",
     "at://did:plc:ivfdfi43xkc34brkhe2qtfec/app.bsky.feed.generator/aaamdxr5d2snk",
+    "at://did:plc:umwdrdb4cizbl5jyyj2dssmm/app.bsky.feed.generator/aaaeacrdbfktk",
 )
+GAME_REFERENCE = re.compile(r"\b(?:disco[\s-]*elysium|revachol|kim kitsuragi|harry du bois)\b", re.I)
 LENSES = {
     "Communism & labor": r"communis\w*|marxis\w*|socialis\w*|unions?|labor|labour|working class|class struggle",
     "Fascism & nationalism": r"fascis\w*|nationalis\w*|authoritarian\w*|supremac\w*",
@@ -142,7 +144,7 @@ def collect_feeds(pages):
             for item in payload["feed"]:
                 post = item["post"]
                 record = post["record"]
-                if "en" in record.get("langs", ()) and re.search(r"\bdisco[\s-]*elysium\b", record["text"], re.I):
+                if "en" in record.get("langs", ()) and GAME_REFERENCE.search(record["text"]):
                     posts.setdefault(post["uri"], post)
             cursor = payload.get("cursor")
             if not cursor or cursor in cursors:
@@ -191,7 +193,7 @@ def model_topics(rows, count):
             return []
         raise
     count = min(count, *matrix.shape)
-    model = NMF(n_components=count, init="nndsvda", random_state=42, max_iter=500)
+    model = NMF(n_components=count, init="nndsvda", solver="mu", random_state=42, max_iter=500)
     weights = model.fit_transform(matrix)
     words = vectorizer.get_feature_names_out()
     for row, scores in zip(rows, weights):
