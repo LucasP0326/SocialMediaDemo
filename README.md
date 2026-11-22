@@ -6,7 +6,7 @@ An exploratory, local-first research prototype for studying public Bluesky posts
 
 1. Install Python 3.10+ and dependencies: `python -m pip install -r requirements.txt`.
 2. Collect posts: `python scripts/scrape_bluesky.py --max-pages-per-query 2`.
-3. Serve the dashboard locally from the repository root: `python -m http.server 8000` and open <http://localhost:8000>.
+3. Serve the dashboard locally from the repository root: `python -m http.server 8000` and open <http://localhost:8000/local-research.html>.
 4. In the dashboard, choose the generated `data/bluesky_posts.json` file. Or use **Load demo data** to explore the interface with clearly labeled synthetic posts.
 
 The collector queries Bluesky's public AppView `app.bsky.feed.searchPosts` endpoint, requiring both a *Disco Elysium* reference and a topic term. It paginates with cursors, deduplicates posts, waits between requests, and saves only post text, timestamps, language, topic-query tags, and run-local pseudonyms. It does not collect handles, DIDs, profile data, likes, reposts, or replies. Results are local research data; the `data/` directory is git-ignored.
@@ -26,6 +26,8 @@ The dashboard assigns posts to transparent, overlapping topic categories using e
 The page runs locally in the browser and does not upload data. Avoid publishing raw post text: searchable quotations can identify authors even when account names are removed. Get appropriate ethics review and follow Bluesky's terms and applicable privacy rules before collecting, sharing, or publishing research data. Pseudonyms are only run-local labels, not a guarantee of anonymity.
 
 ## GitHub Pages dashboard
+
+Both GitHub Actions and branch-based Pages serve the D3 dashboard at the site root. The root HTML, assets, and dataset are generated from `dashboard/`. After updating the interface or archived sample, run `npm ci --prefix dashboard` and `bash scripts/sync_pages_snapshot.sh` from the repository root, then commit the regenerated files. The Actions workflow checks that the branch snapshot matches its build and verifies the public HTML and dataset after publishing.
 
 The published dashboard lives in `dashboard/`. It runs TF-IDF/NMF topic modeling and VADER sentiment scoring over an English-language Bluesky sample with a collection window starting in 2023. The local prototype above remains available for private exploration. Pages receives only the built dashboard and the aggregate research dataset.
 

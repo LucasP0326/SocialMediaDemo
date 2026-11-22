@@ -4,7 +4,13 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['.github/workflows/bluesky-pages.yml', 'dashboard/samples/bluesky-aggregate.json']
+    paths:
+      - .github/workflows/bluesky-pages.yml
+      - dashboard/index.html
+      - dashboard/src/**
+      - dashboard/package-lock.json
+      - dashboard/samples/bluesky-aggregate.json
+      - scripts/sync_pages_snapshot.sh
   schedule:
     - cron: '23 14 * * 1'
 
@@ -21,6 +27,9 @@ jobs:
     timeout-minutes: 15
     permissions:
       contents: read
+    outputs:
+      index_hash: ${{ steps.check.outputs.index_hash }}
+      dataset_hash: ${{ steps.check.outputs.dataset_hash }}
     defaults:
       run:
         working-directory: dashboard
@@ -59,9 +68,19 @@ jobs:
           echo "::warning::Search did not yield a deployable sample. Trying public Disco Elysium community feeds."
           python research.py --community-feeds --since 2023-01-01 --pages 24 --threads 100
       - name: Build project-relative Pages assets
-        run: npm run build -- --base=./
-      - name: Validate the public aggregate
-        run: python ../.github/scripts/check_pages_data.py dist/research.json samples/bluesky-aggregate.json
+        run: npm run build -- --base=./ --assetsDir=pages-assets
+      - name: Check the branch deployment matches the Actions build
+        if: github.event_name == 'push'
+        run: |
+          cmp dist/index.html ../index.html
+          cmp dist/research.json ../research.json
+          diff -r dist/pages-assets ../pages-assets
+      - name: Validate the site and dataset
+        id: check
+        run: |
+          python ../.github/scripts/check_pages_data.py dist/research.json samples/bluesky-aggregate.json
+          echo "index_hash=$(sha256sum dist/index.html | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
+          echo "dataset_hash=$(sha256sum dist/research.json | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
       - name: Stage only dashboard assets
         uses: actions/upload-pages-artifact@v3
         with:
@@ -80,3 +99,21 @@ jobs:
       - name: Publish to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify the public dashboard and dataset
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+          INDEX_HASH: ${{ needs.build.outputs.index_hash }}
+          DATASET_HASH: ${{ needs.build.outputs.dataset_hash }}
+        run: |
+          for attempt in {1..12}; do
+            url="${PAGE_URL%/}"
+            query="deployment=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${attempt}"
+            if curl -fsSL --max-time 10 "$url/?$query" -o public-index.html &&
+               curl -fsSL --max-time 10 "$url/research.json?$query" -o public-research.json &&
+               printf '%s  %s\n' "$INDEX_HASH" public-index.html "$DATASET_HASH" public-research.json | sha256sum --check; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "::error::The public site did not serve the dashboard and dataset from this deployment."
+          exit 1
