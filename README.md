@@ -33,7 +33,17 @@ The published dashboard lives in `dashboard/`. It runs TF-IDF/NMF topic modeling
 2. In the repository's **Settings → Pages**, set **Build and deployment → Source** to **GitHub Actions**.
 3. In **Actions → Refresh Bluesky dashboard**, choose **Run workflow** on `main`. Open the URL reported by the deployment job after it succeeds.
 
-The workflow also runs every Monday at 14:23 UTC. When collection fails or the sample is empty, deployment is skipped and the previous successful site stays online. GitHub-hosted runners use their own network. A successful deployment requires Bluesky to accept their search requests.
+The workflow also runs every Monday at 14:23 UTC. When collection fails or the sample is empty, deployment is skipped and the previous successful site stays online.
+
+### Authenticate Bluesky collection
+
+Bluesky's anonymous search can return HTTP 403 from hosted runners. To use authenticated search with a Bluesky-hosted account, create a dedicated app password under **Bluesky Settings → Privacy and security → App passwords**. In this GitHub repository, open **Settings → Secrets and variables → Actions**:
+
+1. Under **Variables**, add `BLUESKY_HANDLE` with the Bluesky handle without the leading `@`.
+2. Under **Secrets**, add `BLUESKY_APP_PASSWORD` with the app password.
+3. Run **Refresh Bluesky dashboard** on `main`.
+
+The collector signs in through `bsky.social` and generates `research.json` during the run. The workflow publishes aggregate counts and topic terms. With both settings absent, the workflow uses anonymous search.
 
 For a local preview of the Pages dashboard, run the following in `dashboard/` with Python 3.12 and Node.js 24. Omit `--demo` to collect live posts on your connection.
 

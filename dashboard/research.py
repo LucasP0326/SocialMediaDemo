@@ -6,6 +6,7 @@ from datetime import date, datetime, timedelta, timezone
 import hashlib
 import hmac
 import json
+import os
 from pathlib import Path
 import re
 import secrets
@@ -13,13 +14,14 @@ import tempfile
 import time
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
 
 from sklearn.decomposition import NMF
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS, TfidfVectorizer
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 ENDPOINT = "https://public.api.bsky.app/xrpc/app.bsky.feed.searchPosts"
+PDS = "https://bsky.social/xrpc"
 LENSES = {
     "Communism & labor": r"communis\w*|marxis\w*|socialis\w*|unions?|labor|labour|working class|class struggle",
     "Fascism & nationalism": r"fascis\w*|nationalis\w*|authoritarian\w*|supremac\w*",
@@ -37,10 +39,32 @@ IDENTIFIERS = re.compile(
 STOP_WORDS = sorted(ENGLISH_STOP_WORDS | {"disco", "elysium", "game", "games", "playing"})
 
 
-def fetch_page(params):
+def create_session(identifier, app_password):
+    request = Request(
+        f"{PDS}/com.atproto.server.createSession",
+        data=json.dumps({"identifier": identifier, "password": app_password}).encode(),
+        headers={"Content-Type": "application/json"},
+    )
+    try:
+        with urlopen(request, timeout=25) as response:
+            token = json.load(response)["accessJwt"]
+        if not isinstance(token, str) or not token:
+            raise ValueError("missing token")
+        return token
+    except HTTPError as error:
+        raise RuntimeError(f"Bluesky sign-in returned HTTP {error.code}. Verify the handle and app password.") from None
+    except (KeyError, ValueError, TypeError):
+        raise RuntimeError("Bluesky sign-in returned an invalid session response.") from None
+
+
+def fetch_page(params, token=None):
+    endpoint = f"{PDS}/app.bsky.feed.searchPosts" if token else ENDPOINT
+    request = Request(f"{endpoint}?{urlencode(params)}", headers={"Accept": "application/json"})
+    if token:
+        request.add_unredirected_header("Authorization", f"Bearer {token}")
     for attempt in range(4):
         try:
-            with urlopen(f"{ENDPOINT}?{urlencode(params)}", timeout=25) as response:
+            with urlopen(request, timeout=25) as response:
                 return json.load(response)
         except HTTPError as error:
             if error.code not in (429, 500, 502, 503, 504) or attempt == 3:
@@ -49,7 +73,7 @@ def fetch_page(params):
             time.sleep(min(int(retry_after), 120) if retry_after.isdigit() else 2 ** attempt)
 
 
-def collect(since, until, pages):
+def collect(since, until, pages, token=None):
     seen = set()
     results = []
     capped = 0
@@ -60,7 +84,7 @@ def collect(since, until, pages):
                   "since": f"{since}T00:00:00Z", "until": f"{until}T00:00:00Z"}
         cursors = set()
         for page in range(pages):
-            payload = fetch_page(params)
+            payload = fetch_page(params, token)
             queried += 1
             for post in payload["posts"]:
                 uri = post["uri"]
@@ -203,20 +227,33 @@ def main():
     since = args.since or (date(2025, 1, 1) if args.demo else until - timedelta(days=90))
     if since >= until:
         parser.error("--since must precede the exclusive --until date")
+    token = None
     try:
         if args.demo:
             posts, search = demo_posts(), None
         elif args.import_page:
             posts, search = import_pages(args.import_page)
         else:
-            posts, search = collect(since, until, args.pages)
+            identifier = os.getenv("BLUESKY_HANDLE")
+            app_password = os.getenv("BLUESKY_APP_PASSWORD")
+            if bool(identifier) != bool(app_password):
+                raise RuntimeError("Set both BLUESKY_HANDLE and BLUESKY_APP_PASSWORD for authenticated Bluesky search.")
+            if identifier:
+                token = create_session(identifier, app_password)
+            posts, search = collect(since, until, args.pages, token)
     except HTTPError as error:
-        hint = " Try --import-page with a search response collected on another connection." if error.code == 403 else ""
+        hint = ""
+        if error.code in (401, 403) and not token:
+            hint = " Configure BLUESKY_HANDLE and BLUESKY_APP_PASSWORD for authenticated search."
+        elif error.code in (401, 403):
+            hint = " Bluesky rejected the authenticated search."
         parser.exit(1, f"Bluesky search returned HTTP {error.code}.{hint}\n")
+    except RuntimeError as error:
+        parser.exit(1, f"{error}\n")
     except (URLError, OSError) as error:
         parser.exit(1, f"Bluesky collection failed: {error}\n")
     except ValueError as error:
-        parser.exit(1, f"Unable to import Bluesky search page: {error}\n")
+        parser.exit(1, f"Unable to read Bluesky search JSON: {error}\n")
     output = analyze(posts, since, until, args.topics, args.demo, search)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=args.output.parent, delete=False) as file:
