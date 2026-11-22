@@ -89,7 +89,9 @@ function show(data) {
   const first = d3.utcMonth.floor(new Date(data.since));
   const last = d3.utcMonth.ceil(new Date(data.until));
   const months = d3.utcMonth.range(first, last).map(d3.utcFormat("%Y-%m"));
-  options(lens, data.lenses, "All lenses");
+  const includesGeneral = data.search?.includesGeneralDiscussion;
+  const lensOptions = includesGeneral ? ["Any research lens", ...data.lenses] : data.lenses;
+  options(lens, lensOptions, includesGeneral ? "All game discussion" : "All lenses");
   const yearOf = key => key.slice(0, 4);
   const years = [...new Set(months.map(yearOf))];
   const formatMonth = key => monthName(monthDate(key));
@@ -109,7 +111,7 @@ function show(data) {
   d3.select("#window").text(`${data.since} to ${data.until} (end excluded · UTC)`);
   d3.select("#accounts").text(format(data.accounts));
   d3.select("#coverage").text(fromFeeds
-    ? `Collected ${data.search.collectedOn} (UTC) from ${fromFeeds} Disco Elysium community feeds across ${data.search.pages} pages. ${format(data.candidates)} unique English-tagged candidate posts matched the game title or a named character or location. Feed selection and the small sample limit what these results can say about the wider conversation.`
+    ? `Collected ${data.search.collectedOn} (UTC) from ${fromFeeds} community feeds across ${data.search.pages} pages. Feed posts matched the game or a named character or location in text or image descriptions. ${data.search.threadsRead ?? 0} of ${data.search.threadsAttempted ?? 0} queried threads were read, adding ${format(data.search.additionalReplies ?? 0)} unique English-tagged replies before date and text filtering. A bounded author-feed search added ${format(data.search.archivalPosts ?? 0)} posts from 2023. Feed, thread, and archive selection limit coverage.`
     : data.search?.importedPages
     ? `Imported ${data.search.importedPages} Bluesky search response pages containing ${format(data.candidates)} unique candidate posts. Coverage depends on the queries, dates, and cursors used to collect those pages.`
     : data.search
@@ -120,7 +122,8 @@ function show(data) {
 
   function render() {
     const rows = data.cells.filter(row =>
-      (!lens.value || row.lenses.includes(lens.value)) &&
+      (!lens.value || row.lenses.includes(lens.value) ||
+        (lens.value === "Any research lens" && row.lenses.length > 0)) &&
       (!year.value || yearOf(row.month) === year.value) &&
       (!month.value || row.month === month.value));
     const byTopic = summarize(rows, row => row.topic);

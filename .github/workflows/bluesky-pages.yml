@@ -57,7 +57,7 @@ jobs:
             exit 0
           fi
           echo "::warning::Search did not yield a deployable sample. Trying public Disco Elysium community feeds."
-          python research.py --community-feeds --since 2023-01-01 --pages 16
+          python research.py --community-feeds --since 2023-01-01 --pages 24 --threads 100
       - name: Build project-relative Pages assets
         run: npm run build -- --base=./
       - name: Validate the public aggregate

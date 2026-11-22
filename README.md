@@ -57,12 +57,14 @@ npm run dev
 
 ### Community-feed sample
 
-A push that changes the Pages workflow or the checked-in aggregate deploys the verified community-feed snapshot in `dashboard/samples/`. Scheduled and manual runs try search first, then public Disco Elysium community feeds if search fails or produces an empty sample. The dashboard identifies the source and date range and groups the timeline by year. Select a year to inspect monthly counts. The displayed window can include years where no posts met the sample criteria. The October 2019 PC release predates Bluesky. Community feeds are curated samples.
+A push that changes the Pages workflow or the checked-in aggregate deploys the verified community-feed snapshot in `dashboard/samples/`. Scheduled and manual runs try search first, then public community feeds and their reply threads if search fails or produces a sample smaller than the archived snapshot. The dashboard identifies the source and date range and groups the timeline by year. Select a year to inspect monthly counts. The displayed window can include years where no posts met the sample criteria. The October 2019 PC release predates Bluesky. Community feeds are curated samples.
 
 To reproduce a community-feed collection from `dashboard/`, run:
 
 ```sh
-.venv/bin/python research.py --community-feeds --since 2023-01-01 --pages 16
+.venv/bin/python research.py --community-feeds --since 2023-01-01 --pages 24 --threads 100
 ```
+
+Feed posts qualify by a game reference in the post or image description. The collector samples English-tagged replies up to two levels deep under qualifying posts. For 2023, the collector also checks a bounded set of author archives selected from earlier feed contributors, retaining only English-tagged posts with a game reference. All game discussion appears in the overview. Select **Any research lens** to focus on posts matching one or more political, social, or cultural keyword lists.
 
 Only the aggregate snapshot belongs in Git. It contains counts and topic terms.

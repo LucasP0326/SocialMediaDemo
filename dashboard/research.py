@@ -2,6 +2,7 @@
 
 import argparse
 from collections import Counter, defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timedelta, timezone
 import hashlib
 import hmac
@@ -20,14 +21,21 @@ from sklearn.decomposition import NMF
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS, TfidfVectorizer
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
-ENDPOINT = "https://public.api.bsky.app/xrpc/app.bsky.feed.searchPosts"
+PUBLIC_APPVIEW = "https://public.api.bsky.app/xrpc"
+ENDPOINT = f"{PUBLIC_APPVIEW}/app.bsky.feed.searchPosts"
 PDS = "https://bsky.social/xrpc"
 COMMUNITY_FEEDS = (
     "at://did:plc:a2dpgfdjvuxxp5ni3hgd7wwi/app.bsky.feed.generator/discoelysium",
     "at://did:plc:ivfdfi43xkc34brkhe2qtfec/app.bsky.feed.generator/aaamdxr5d2snk",
     "at://did:plc:umwdrdb4cizbl5jyyj2dssmm/app.bsky.feed.generator/aaaeacrdbfktk",
+    "at://did:plc:umwdrdb4cizbl5jyyj2dssmm/app.bsky.feed.generator/discoelysiumart",
+    "at://did:plc:umwdrdb4cizbl5jyyj2dssmm/app.bsky.feed.generator/aaaedcvedvvwc",
+    "at://did:plc:wez4mmcvrydqoscx35yymnhx/app.bsky.feed.generator/aaaki55luicja",
 )
-GAME_REFERENCE = re.compile(r"\b(?:disco[\s-]*elysium|revachol|kim kitsuragi|harry du bois)\b", re.I)
+GAME_REFERENCE = re.compile(
+    r"\b(?:disco[\s-]*elysium|revachol|kim\s*kitsuragi|harry\s*du\s*bois|"
+    r"martinaise|cunoesse|klaasje|titus hardie|thought cabinet|tequila sunset)\b", re.I
+)
 LENSES = {
     "Communism & labor": r"communis\w*|marxis\w*|socialis\w*|unions?|labor|labour|working class|class struggle",
     "Fascism & nationalism": r"fascis\w*|nationalis\w*|authoritarian\w*|supremac\w*",
@@ -130,29 +138,110 @@ def import_pages(paths):
     return list(posts.values()), {"importedPages": len(paths)}
 
 
-def collect_feeds(pages):
+def public_json(method, params):
+    with urlopen(f"{PUBLIC_APPVIEW}/{method}?{urlencode(params)}", timeout=15) as response:
+        return json.load(response)
+
+
+def game_reference(record):
+    embed = record.get("embed") or {}
+    media = embed.get("media", embed)
+    image_descriptions = (item.get("alt", "") for item in media.get("images", ()))
+    return any(GAME_REFERENCE.search(part) for part in (record["text"], *image_descriptions))
+
+
+def thread_posts(seed):
+    try:
+        payload = public_json("app.bsky.feed.getPostThread", {"uri": seed["uri"], "depth": 2, "parentHeight": 0})
+    except URLError:
+        return None
+    pending = list(payload["thread"].get("replies", ()))
+    results = []
+    while pending:
+        node = pending.pop()
+        if (post := node.get("post")) and "en" in post["record"].get("langs", ()):
+            results.append(post)
+        pending.extend(node.get("replies", ()))
+    return results
+
+
+def early_profile(did):
+    try:
+        profile = public_json("app.bsky.actor.getProfile", {"actor": did})
+    except URLError:
+        return None
+    return profile if profile.get("createdAt", "").startswith("2023") else None
+
+
+def early_author_posts(profile):
+    params = {"actor": profile["did"], "limit": 100, "filter": "posts_with_replies"}
+    posts = {}
+    for _ in range(10):
+        try:
+            payload = public_json("app.bsky.feed.getAuthorFeed", params)
+        except URLError:
+            break
+        for item in payload["feed"]:
+            post = item["post"]
+            record = post["record"]
+            if (post["author"]["did"] == profile["did"] and record["createdAt"].startswith("2023")
+                    and "en" in record.get("langs", ()) and game_reference(record)):
+                posts.setdefault(post["uri"], post)
+        cursor = payload.get("cursor")
+        if not cursor or cursor == params.get("cursor"):
+            break
+        params["cursor"] = cursor
+    return posts
+
+
+def collect_feeds(pages, thread_limit, since):
     posts = {}
     page_count = 0
     for feed in COMMUNITY_FEEDS:
         params = {"feed": feed, "limit": 100}
         cursors = set()
         for _ in range(pages):
-            url = f"https://public.api.bsky.app/xrpc/app.bsky.feed.getFeed?{urlencode(params)}"
-            with urlopen(url, timeout=25) as response:
-                payload = json.load(response)
+            payload = public_json("app.bsky.feed.getFeed", params)
             page_count += 1
             for item in payload["feed"]:
                 post = item["post"]
                 record = post["record"]
-                if "en" in record.get("langs", ()) and GAME_REFERENCE.search(record["text"]):
+                if "en" in record.get("langs", ()) and game_reference(record):
                     posts.setdefault(post["uri"], post)
             cursor = payload.get("cursor")
             if not cursor or cursor in cursors:
                 break
             cursors.add(cursor)
             params["cursor"] = cursor
+    archival_posts = 0
+    threads_read = 0
+    with ThreadPoolExecutor(max_workers=4) as workers:
+        if since.year <= 2023:
+            early_authors = sorted({
+                post["author"]["did"] for post in posts.values()
+                if post["record"]["createdAt"][:4] <= "2024"
+            })[:40]
+            profiles = [profile for profile in workers.map(early_profile, early_authors) if profile]
+            profiles.sort(key=lambda profile: (profile.get("postsCount", float("inf")), profile["did"]))
+            feed_count = len(posts)
+            for archived in workers.map(early_author_posts, profiles[:6]):
+                posts.update(archived)
+            archival_posts = len(posts) - feed_count
+        seeds = sorted(
+            (post for post in posts.values() if post.get("replyCount", 0) > 0),
+            key=lambda post: post["record"]["createdAt"],
+        )[:thread_limit]
+        before_replies = len(posts)
+        for replies in workers.map(thread_posts, seeds):
+            if replies is not None:
+                threads_read += 1
+                for reply in replies:
+                    posts.setdefault(reply["uri"], reply)
     return list(posts.values()), {
         "communityFeeds": len(COMMUNITY_FEEDS), "pages": page_count,
+        "threadsRead": threads_read, "threadsAttempted": len(seeds),
+        "additionalReplies": len(posts) - before_replies, "archivalPosts": archival_posts,
+        "includesGeneralDiscussion": True,
         "collectedOn": str(datetime.now(timezone.utc).date()),
     }
 
@@ -216,7 +305,7 @@ def analyze(posts, since, until, topic_count, demo, search):
             continue
         content = IDENTIFIERS.sub(" ", record["text"]).strip()
         lenses = [label for label, pattern in PATTERNS.items() if pattern.search(content)]
-        if not lenses:
+        if not content or (not lenses and not (search or {}).get("includesGeneralDiscussion")):
             continue
         # Keep the pseudonym only in memory. Never publish a handle, DID, or post.
         account = hmac.new(salt, post["author"]["did"].encode(), hashlib.sha256).hexdigest()
@@ -253,10 +342,11 @@ def main():
     parser.add_argument("--until", type=date.fromisoformat)
     parser.add_argument("--pages", type=int, default=3, help="maximum pages per query")
     parser.add_argument("--topics", type=int, default=6)
+    parser.add_argument("--threads", type=int, default=100, help="maximum community-feed threads to expand")
     parser.add_argument("--output", type=Path, default=Path("public/research.json"))
     args = parser.parse_args()
-    if args.pages < 1 or args.topics < 1:
-        parser.error("--pages and --topics must be positive")
+    if args.pages < 1 or args.topics < 1 or args.threads < 0:
+        parser.error("--pages and --topics must be positive and --threads cannot be negative")
     until = args.until or (date(2025, 7, 1) if args.demo else today + timedelta(days=1))
     since = args.since or (date(2025, 1, 1) if args.demo else until - timedelta(days=90))
     if since >= until:
@@ -268,7 +358,7 @@ def main():
         elif args.import_page:
             posts, search = import_pages(args.import_page)
         elif args.community_feeds:
-            posts, search = collect_feeds(args.pages)
+            posts, search = collect_feeds(args.pages, args.threads, since)
         else:
             identifier = os.getenv("BLUESKY_HANDLE")
             app_password = os.getenv("BLUESKY_APP_PASSWORD")

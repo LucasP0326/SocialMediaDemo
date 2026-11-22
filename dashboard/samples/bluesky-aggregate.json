@@ -3,13 +3,18 @@
   "since": "2023-01-01",
   "until": "2026-11-23",
   "search": {
-    "communityFeeds": 3,
-    "pages": 10,
+    "communityFeeds": 6,
+    "pages": 30,
+    "threadsRead": 100,
+    "threadsAttempted": 100,
+    "additionalReplies": 559,
+    "archivalPosts": 1,
+    "includesGeneralDiscussion": true,
     "collectedOn": "2026-11-22"
   },
-  "candidates": 248,
-  "posts": 15,
-  "accounts": 14,
+  "candidates": 1209,
+  "posts": 1197,
+  "accounts": 384,
   "lenses": [
     "Communism & labor",
     "Fascism & nationalism",
@@ -22,38 +27,294 @@
     {
       "id": 0,
       "terms": [
-        "harrydubois",
         "discoelysium",
-        "gay",
+        "relapse",
         "fanart",
-        "art"
+        "kimharry",
+        "kinktober"
       ]
     },
     {
       "id": 1,
       "terms": [
-        "communist",
-        "play",
-        "kitsuragi",
-        "kim",
-        "like"
+        "art",
+        "digitalart",
+        "anthro",
+        "furry",
+        "comm"
       ]
     },
     {
       "id": 2,
       "terms": [
-        "zero",
-        "parades",
+        "harry",
+        "kim",
+        "jean",
+        "like",
+        "just"
+      ]
+    },
+    {
+      "id": 3,
+      "terms": [
+        "nsfw",
+        "harrykim",
+        "doodles",
+        "doodle",
+        "kimharry"
+      ]
+    },
+    {
+      "id": 4,
+      "terms": [
+        "love",
+        "thank",
         "good",
-        "trying",
-        "like"
+        "oh",
+        "bugs"
+      ]
+    },
+    {
+      "id": 5,
+      "terms": [
+        "kimkitsuragi",
+        "harrydubois",
+        "harrykim",
+        "kimharry",
+        "fanart"
       ]
     }
   ],
   "cells": [
     {
+      "month": "2023-11",
+      "topic": 5,
+      "lenses": [],
+      "counts": {
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2024-07",
+      "topic": 1,
+      "lenses": [],
+      "counts": {
+        "negative": 1
+      }
+    },
+    {
+      "month": "2024-10",
+      "topic": 1,
+      "lenses": [],
+      "counts": {
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2024-11",
+      "topic": 0,
+      "lenses": [],
+      "counts": {
+        "negative": 2,
+        "positive": 1
+      }
+    },
+    {
+      "month": "2024-11",
+      "topic": 2,
+      "lenses": [],
+      "counts": {
+        "neutral": 1,
+        "positive": 7,
+        "negative": 3
+      }
+    },
+    {
+      "month": "2024-11",
+      "topic": 3,
+      "lenses": [],
+      "counts": {
+        "neutral": 2
+      }
+    },
+    {
+      "month": "2024-11",
+      "topic": 4,
+      "lenses": [],
+      "counts": {
+        "positive": 15,
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2024-11",
+      "topic": 5,
+      "lenses": [],
+      "counts": {
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2024-12",
+      "topic": -1,
+      "lenses": [],
+      "counts": {
+        "neutral": 14,
+        "negative": 3,
+        "positive": 4
+      }
+    },
+    {
+      "month": "2024-12",
+      "topic": 0,
+      "lenses": [],
+      "counts": {
+        "positive": 3,
+        "neutral": 4,
+        "negative": 3
+      }
+    },
+    {
+      "month": "2024-12",
+      "topic": 1,
+      "lenses": [],
+      "counts": {
+        "positive": 8,
+        "negative": 3,
+        "neutral": 4
+      }
+    },
+    {
+      "month": "2024-12",
+      "topic": 2,
+      "lenses": [],
+      "counts": {
+        "negative": 15,
+        "positive": 53,
+        "neutral": 20
+      }
+    },
+    {
+      "month": "2024-12",
+      "topic": 2,
+      "lenses": [
+        "LGBTQ+ identities"
+      ],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2024-12",
+      "topic": 3,
+      "lenses": [],
+      "counts": {
+        "positive": 13,
+        "neutral": 7,
+        "negative": 1
+      }
+    },
+    {
+      "month": "2024-12",
+      "topic": 4,
+      "lenses": [],
+      "counts": {
+        "neutral": 15,
+        "positive": 64,
+        "negative": 6
+      }
+    },
+    {
+      "month": "2024-12",
+      "topic": 4,
+      "lenses": [
+        "LGBTQ+ identities"
+      ],
+      "counts": {
+        "negative": 1
+      }
+    },
+    {
+      "month": "2024-12",
+      "topic": 5,
+      "lenses": [],
+      "counts": {
+        "positive": 2,
+        "neutral": 3,
+        "negative": 3
+      }
+    },
+    {
+      "month": "2025-01",
+      "topic": -1,
+      "lenses": [],
+      "counts": {
+        "positive": 1,
+        "negative": 1,
+        "neutral": 2
+      }
+    },
+    {
       "month": "2025-01",
       "topic": 0,
+      "lenses": [],
+      "counts": {
+        "neutral": 4,
+        "negative": 1,
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-01",
+      "topic": 1,
+      "lenses": [],
+      "counts": {
+        "negative": 2,
+        "positive": 4,
+        "neutral": 6
+      }
+    },
+    {
+      "month": "2025-01",
+      "topic": 2,
+      "lenses": [],
+      "counts": {
+        "positive": 14,
+        "neutral": 11,
+        "negative": 8
+      }
+    },
+    {
+      "month": "2025-01",
+      "topic": 3,
+      "lenses": [],
+      "counts": {
+        "positive": 7,
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2025-01",
+      "topic": 4,
+      "lenses": [],
+      "counts": {
+        "positive": 25,
+        "neutral": 4,
+        "negative": 4
+      }
+    },
+    {
+      "month": "2025-01",
+      "topic": 5,
+      "lenses": [],
+      "counts": {
+        "positive": 4,
+        "neutral": 5
+      }
+    },
+    {
+      "month": "2025-01",
+      "topic": 5,
       "lenses": [
         "LGBTQ+ identities"
       ],
@@ -64,7 +325,7 @@
     },
     {
       "month": "2025-01",
-      "topic": 0,
+      "topic": 5,
       "lenses": [
         "LGBTQ+ identities",
         "Politics & culture"
@@ -74,8 +335,112 @@
       }
     },
     {
+      "month": "2025-02",
+      "topic": -1,
+      "lenses": [],
+      "counts": {
+        "neutral": 3,
+        "positive": 2,
+        "negative": 1
+      }
+    },
+    {
+      "month": "2025-02",
+      "topic": 0,
+      "lenses": [],
+      "counts": {
+        "neutral": 2,
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-02",
+      "topic": 1,
+      "lenses": [],
+      "counts": {
+        "negative": 2,
+        "neutral": 5
+      }
+    },
+    {
+      "month": "2025-02",
+      "topic": 2,
+      "lenses": [],
+      "counts": {
+        "neutral": 8,
+        "positive": 18,
+        "negative": 9
+      }
+    },
+    {
+      "month": "2025-02",
+      "topic": 3,
+      "lenses": [],
+      "counts": {
+        "negative": 1,
+        "positive": 4,
+        "neutral": 19
+      }
+    },
+    {
+      "month": "2025-02",
+      "topic": 4,
+      "lenses": [],
+      "counts": {
+        "positive": 31,
+        "negative": 6,
+        "neutral": 2
+      }
+    },
+    {
+      "month": "2025-02",
+      "topic": 5,
+      "lenses": [],
+      "counts": {
+        "neutral": 4,
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-03",
+      "topic": -1,
+      "lenses": [],
+      "counts": {
+        "neutral": 4,
+        "positive": 2,
+        "negative": 1
+      }
+    },
+    {
       "month": "2025-03",
       "topic": 0,
+      "lenses": [],
+      "counts": {
+        "positive": 2
+      }
+    },
+    {
+      "month": "2025-03",
+      "topic": 1,
+      "lenses": [],
+      "counts": {
+        "neutral": 3,
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-03",
+      "topic": 2,
+      "lenses": [],
+      "counts": {
+        "positive": 30,
+        "negative": 8,
+        "neutral": 8
+      }
+    },
+    {
+      "month": "2025-03",
+      "topic": 2,
       "lenses": [
         "LGBTQ+ identities"
       ],
@@ -84,8 +449,171 @@
       }
     },
     {
+      "month": "2025-03",
+      "topic": 3,
+      "lenses": [],
+      "counts": {
+        "positive": 2,
+        "negative": 1,
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2025-03",
+      "topic": 4,
+      "lenses": [],
+      "counts": {
+        "positive": 31,
+        "neutral": 8,
+        "negative": 6
+      }
+    },
+    {
+      "month": "2025-03",
+      "topic": 4,
+      "lenses": [
+        "LGBTQ+ identities"
+      ],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-03",
+      "topic": 5,
+      "lenses": [],
+      "counts": {
+        "neutral": 5,
+        "positive": 2,
+        "negative": 4
+      }
+    },
+    {
+      "month": "2025-03",
+      "topic": 5,
+      "lenses": [
+        "LGBTQ+ identities"
+      ],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-04",
+      "topic": -1,
+      "lenses": [],
+      "counts": {
+        "neutral": 6
+      }
+    },
+    {
+      "month": "2025-04",
+      "topic": 0,
+      "lenses": [],
+      "counts": {
+        "neutral": 2,
+        "negative": 2,
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-04",
+      "topic": 1,
+      "lenses": [],
+      "counts": {
+        "positive": 3,
+        "neutral": 1,
+        "negative": 2
+      }
+    },
+    {
+      "month": "2025-04",
+      "topic": 2,
+      "lenses": [],
+      "counts": {
+        "positive": 17,
+        "negative": 5,
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2025-04",
+      "topic": 3,
+      "lenses": [],
+      "counts": {
+        "neutral": 5,
+        "negative": 3,
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-04",
+      "topic": 4,
+      "lenses": [],
+      "counts": {
+        "positive": 16,
+        "negative": 4
+      }
+    },
+    {
+      "month": "2025-04",
+      "topic": 5,
+      "lenses": [],
+      "counts": {
+        "positive": 3,
+        "neutral": 3,
+        "negative": 1
+      }
+    },
+    {
       "month": "2025-05",
       "topic": 0,
+      "lenses": [],
+      "counts": {
+        "neutral": 5
+      }
+    },
+    {
+      "month": "2025-05",
+      "topic": 1,
+      "lenses": [],
+      "counts": {
+        "negative": 2,
+        "neutral": 8,
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-05",
+      "topic": 2,
+      "lenses": [],
+      "counts": {
+        "negative": 2,
+        "positive": 3
+      }
+    },
+    {
+      "month": "2025-05",
+      "topic": 2,
+      "lenses": [
+        "LGBTQ+ identities"
+      ],
+      "counts": {
+        "negative": 1
+      }
+    },
+    {
+      "month": "2025-05",
+      "topic": 3,
+      "lenses": [],
+      "counts": {
+        "neutral": 1,
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-05",
+      "topic": 3,
       "lenses": [
         "LGBTQ+ identities"
       ],
@@ -95,19 +623,115 @@
     },
     {
       "month": "2025-05",
-      "topic": 1,
-      "lenses": [
-        "LGBTQ+ identities"
-      ],
+      "topic": 4,
+      "lenses": [],
       "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-05",
+      "topic": 5,
+      "lenses": [],
+      "counts": {
+        "positive": 3,
         "negative": 1
       }
     },
     {
       "month": "2025-06",
       "topic": 0,
+      "lenses": [],
+      "counts": {
+        "negative": 1,
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2025-06",
+      "topic": 1,
+      "lenses": [],
+      "counts": {
+        "neutral": 2,
+        "positive": 2,
+        "negative": 1
+      }
+    },
+    {
+      "month": "2025-06",
+      "topic": 3,
+      "lenses": [],
+      "counts": {
+        "neutral": 1,
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-06",
+      "topic": 4,
+      "lenses": [],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-06",
+      "topic": 5,
       "lenses": [
         "LGBTQ+ identities"
+      ],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-07",
+      "topic": 1,
+      "lenses": [],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-08",
+      "topic": 2,
+      "lenses": [],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-10",
+      "topic": 0,
+      "lenses": [],
+      "counts": {
+        "neutral": 1,
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-10",
+      "topic": 1,
+      "lenses": [],
+      "counts": {
+        "positive": 2,
+        "negative": 1
+      }
+    },
+    {
+      "month": "2025-10",
+      "topic": 2,
+      "lenses": [],
+      "counts": {
+        "positive": 2,
+        "negative": 1
+      }
+    },
+    {
+      "month": "2025-10",
+      "topic": 2,
+      "lenses": [
+        "Communism & labor"
       ],
       "counts": {
         "positive": 1
@@ -115,7 +739,244 @@
     },
     {
       "month": "2025-10",
+      "topic": 3,
+      "lenses": [],
+      "counts": {
+        "positive": 1,
+        "neutral": 2
+      }
+    },
+    {
+      "month": "2025-10",
+      "topic": 4,
+      "lenses": [],
+      "counts": {
+        "positive": 1,
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2025-11",
+      "topic": 4,
+      "lenses": [],
+      "counts": {
+        "negative": 1,
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-12",
+      "topic": 0,
+      "lenses": [],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-12",
       "topic": 1,
+      "lenses": [],
+      "counts": {
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2025-12",
+      "topic": 2,
+      "lenses": [],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2025-12",
+      "topic": 3,
+      "lenses": [],
+      "counts": {
+        "positive": 2
+      }
+    },
+    {
+      "month": "2026-01",
+      "topic": -1,
+      "lenses": [],
+      "counts": {
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-01",
+      "topic": 0,
+      "lenses": [],
+      "counts": {
+        "positive": 1,
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-01",
+      "topic": 3,
+      "lenses": [],
+      "counts": {
+        "positive": 1,
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-01",
+      "topic": 4,
+      "lenses": [],
+      "counts": {
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-02",
+      "topic": -1,
+      "lenses": [],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-02",
+      "topic": 0,
+      "lenses": [],
+      "counts": {
+        "neutral": 2
+      }
+    },
+    {
+      "month": "2026-02",
+      "topic": 1,
+      "lenses": [],
+      "counts": {
+        "positive": 2
+      }
+    },
+    {
+      "month": "2026-02",
+      "topic": 2,
+      "lenses": [],
+      "counts": {
+        "positive": 3,
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-02",
+      "topic": 4,
+      "lenses": [],
+      "counts": {
+        "neutral": 2,
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-02",
+      "topic": 5,
+      "lenses": [],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-03",
+      "topic": 1,
+      "lenses": [],
+      "counts": {
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-03",
+      "topic": 2,
+      "lenses": [],
+      "counts": {
+        "negative": 1,
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-03",
+      "topic": 4,
+      "lenses": [],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-04",
+      "topic": -1,
+      "lenses": [],
+      "counts": {
+        "neutral": 1,
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-04",
+      "topic": 2,
+      "lenses": [],
+      "counts": {
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-04",
+      "topic": 3,
+      "lenses": [],
+      "counts": {
+        "positive": 2,
+        "neutral": 3
+      }
+    },
+    {
+      "month": "2026-04",
+      "topic": 5,
+      "lenses": [],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-05",
+      "topic": -1,
+      "lenses": [],
+      "counts": {
+        "neutral": 2,
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-05",
+      "topic": 0,
+      "lenses": [],
+      "counts": {
+        "positive": 1,
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-05",
+      "topic": 1,
+      "lenses": [],
+      "counts": {
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-05",
+      "topic": 2,
+      "lenses": [],
+      "counts": {
+        "negative": 4,
+        "positive": 11
+      }
+    },
+    {
+      "month": "2026-05",
+      "topic": 2,
       "lenses": [
         "Communism & labor"
       ],
@@ -125,17 +986,7 @@
     },
     {
       "month": "2026-05",
-      "topic": 1,
-      "lenses": [
-        "Communism & labor"
-      ],
-      "counts": {
-        "positive": 1
-      }
-    },
-    {
-      "month": "2026-05",
-      "topic": 1,
+      "topic": 2,
       "lenses": [
         "Communism & labor",
         "Fascism & nationalism"
@@ -146,7 +997,36 @@
     },
     {
       "month": "2026-05",
-      "topic": 1,
+      "topic": 2,
+      "lenses": [
+        "Politics & culture"
+      ],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-05",
+      "topic": 3,
+      "lenses": [],
+      "counts": {
+        "positive": 1,
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-05",
+      "topic": 4,
+      "lenses": [],
+      "counts": {
+        "negative": 3,
+        "positive": 5,
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-05",
+      "topic": 4,
       "lenses": [
         "LGBTQ+ identities",
         "Politics & culture"
@@ -157,18 +1037,189 @@
     },
     {
       "month": "2026-05",
-      "topic": 2,
+      "topic": 4,
       "lenses": [
         "Politics & culture"
       ],
       "counts": {
-        "positive": 1,
         "neutral": 1
       }
     },
     {
-      "month": "2026-09",
+      "month": "2026-05",
+      "topic": 5,
+      "lenses": [],
+      "counts": {
+        "neutral": 4,
+        "negative": 2
+      }
+    },
+    {
+      "month": "2026-06",
+      "topic": 0,
+      "lenses": [],
+      "counts": {
+        "positive": 2
+      }
+    },
+    {
+      "month": "2026-06",
       "topic": 1,
+      "lenses": [],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-06",
+      "topic": 2,
+      "lenses": [],
+      "counts": {
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-06",
+      "topic": 4,
+      "lenses": [],
+      "counts": {
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-07",
+      "topic": 0,
+      "lenses": [],
+      "counts": {
+        "positive": 6,
+        "negative": 2,
+        "neutral": 7
+      }
+    },
+    {
+      "month": "2026-07",
+      "topic": 0,
+      "lenses": [
+        "Politics & culture"
+      ],
+      "counts": {
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-07",
+      "topic": 1,
+      "lenses": [],
+      "counts": {
+        "neutral": 2,
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-07",
+      "topic": 2,
+      "lenses": [],
+      "counts": {
+        "neutral": 3,
+        "negative": 1,
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-07",
+      "topic": 3,
+      "lenses": [],
+      "counts": {
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-07",
+      "topic": 4,
+      "lenses": [],
+      "counts": {
+        "positive": 2
+      }
+    },
+    {
+      "month": "2026-07",
+      "topic": 5,
+      "lenses": [],
+      "counts": {
+        "neutral": 4
+      }
+    },
+    {
+      "month": "2026-08",
+      "topic": 0,
+      "lenses": [],
+      "counts": {
+        "neutral": 35,
+        "negative": 9,
+        "positive": 12
+      }
+    },
+    {
+      "month": "2026-08",
+      "topic": 1,
+      "lenses": [],
+      "counts": {
+        "negative": 4,
+        "neutral": 2,
+        "positive": 3
+      }
+    },
+    {
+      "month": "2026-08",
+      "topic": 2,
+      "lenses": [],
+      "counts": {
+        "neutral": 5,
+        "positive": 2,
+        "negative": 1
+      }
+    },
+    {
+      "month": "2026-08",
+      "topic": 3,
+      "lenses": [],
+      "counts": {
+        "neutral": 4,
+        "negative": 1,
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-08",
+      "topic": 4,
+      "lenses": [],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-08",
+      "topic": 5,
+      "lenses": [],
+      "counts": {
+        "positive": 4,
+        "negative": 1,
+        "neutral": 3
+      }
+    },
+    {
+      "month": "2026-09",
+      "topic": 0,
+      "lenses": [],
+      "counts": {
+        "neutral": 20,
+        "negative": 5,
+        "positive": 18
+      }
+    },
+    {
+      "month": "2026-09",
+      "topic": 0,
       "lenses": [
         "Communism & labor"
       ],
@@ -177,13 +1228,222 @@
       }
     },
     {
-      "month": "2026-11",
+      "month": "2026-09",
       "topic": 1,
+      "lenses": [],
+      "counts": {
+        "positive": 5,
+        "neutral": 2
+      }
+    },
+    {
+      "month": "2026-09",
+      "topic": 2,
+      "lenses": [],
+      "counts": {
+        "neutral": 8,
+        "positive": 6,
+        "negative": 2
+      }
+    },
+    {
+      "month": "2026-09",
+      "topic": 2,
+      "lenses": [
+        "Communism & labor"
+      ],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-09",
+      "topic": 2,
+      "lenses": [
+        "LGBTQ+ identities"
+      ],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-09",
+      "topic": 3,
+      "lenses": [],
+      "counts": {
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-09",
+      "topic": 4,
+      "lenses": [],
+      "counts": {
+        "positive": 3
+      }
+    },
+    {
+      "month": "2026-09",
+      "topic": 5,
+      "lenses": [],
+      "counts": {
+        "negative": 4,
+        "neutral": 8,
+        "positive": 4
+      }
+    },
+    {
+      "month": "2026-09",
+      "topic": 5,
       "lenses": [
         "LGBTQ+ identities"
       ],
       "counts": {
         "neutral": 1
+      }
+    },
+    {
+      "month": "2026-10",
+      "topic": 0,
+      "lenses": [],
+      "counts": {
+        "neutral": 27,
+        "negative": 5,
+        "positive": 12
+      }
+    },
+    {
+      "month": "2026-10",
+      "topic": 0,
+      "lenses": [
+        "Communism & labor"
+      ],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-10",
+      "topic": 0,
+      "lenses": [
+        "Gender & sexism"
+      ],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-10",
+      "topic": 1,
+      "lenses": [],
+      "counts": {
+        "positive": 6,
+        "negative": 1,
+        "neutral": 2
+      }
+    },
+    {
+      "month": "2026-10",
+      "topic": 2,
+      "lenses": [],
+      "counts": {
+        "neutral": 7,
+        "positive": 9,
+        "negative": 1
+      }
+    },
+    {
+      "month": "2026-10",
+      "topic": 3,
+      "lenses": [],
+      "counts": {
+        "positive": 1
+      }
+    },
+    {
+      "month": "2026-10",
+      "topic": 4,
+      "lenses": [],
+      "counts": {
+        "neutral": 1,
+        "positive": 2
+      }
+    },
+    {
+      "month": "2026-10",
+      "topic": 5,
+      "lenses": [],
+      "counts": {
+        "neutral": 7,
+        "positive": 9
+      }
+    },
+    {
+      "month": "2026-11",
+      "topic": 0,
+      "lenses": [],
+      "counts": {
+        "neutral": 11,
+        "positive": 6,
+        "negative": 3
+      }
+    },
+    {
+      "month": "2026-11",
+      "topic": 1,
+      "lenses": [],
+      "counts": {
+        "positive": 2,
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-11",
+      "topic": 1,
+      "lenses": [
+        "Communism & labor"
+      ],
+      "counts": {
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-11",
+      "topic": 2,
+      "lenses": [],
+      "counts": {
+        "positive": 3,
+        "neutral": 4,
+        "negative": 1
+      }
+    },
+    {
+      "month": "2026-11",
+      "topic": 2,
+      "lenses": [
+        "LGBTQ+ identities"
+      ],
+      "counts": {
+        "neutral": 1
+      }
+    },
+    {
+      "month": "2026-11",
+      "topic": 4,
+      "lenses": [],
+      "counts": {
+        "positive": 1,
+        "negative": 1
+      }
+    },
+    {
+      "month": "2026-11",
+      "topic": 5,
+      "lenses": [],
+      "counts": {
+        "positive": 2,
+        "neutral": 3,
+        "negative": 1
       }
     }
   ]

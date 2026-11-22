@@ -34,4 +34,6 @@ if len(sys.argv) > 2:
     missing_years = sorted(existing_years - incoming_years)
     if missing_years:
         sys.exit(f"Refresh would drop years present in the snapshot: {', '.join(missing_years)}.")
+    if dataset["posts"] < snapshot["posts"]:
+        sys.exit("Refresh would replace the archived sample with fewer posts.")
 print(f"Verified aggregate of {count} Bluesky posts.")
