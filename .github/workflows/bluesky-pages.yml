@@ -2,6 +2,9 @@ name: Refresh Bluesky dashboard
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/bluesky-pages.yml']
   schedule:
     - cron: '23 14 * * 1'
 
