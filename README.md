@@ -24,3 +24,23 @@ Use `--help` for all options. API availability and search coverage are controlle
 The dashboard assigns posts to transparent, overlapping topic categories using editable keyword dictionaries and scores sentiment using a small English-language lexicon. These are exploratory proxies, **not** validated topic modeling or reliable measures of a person's beliefs or emotional state. Irony, context, multilingual content, reclaimed language, and ambiguous terms can lead to errors. Review categories and results carefully; do not make claims about individuals or treat scores as ground truth. The date chart uses UTC dates. Synthetic demo data is not real Bluesky content.
 
 The page runs locally in the browser and does not upload data. Avoid publishing raw post text: searchable quotations can identify authors even when account names are removed. Get appropriate ethics review and follow Bluesky's terms and applicable privacy rules before collecting, sharing, or publishing research data. Pseudonyms are only run-local labels, not a guarantee of anonymity.
+
+## GitHub Pages dashboard
+
+The published dashboard lives in `dashboard/`. It runs TF-IDF/NMF topic modeling and VADER sentiment scoring over a rolling 90-day English-language Bluesky search sample. The local prototype above remains available for private exploration. Pages receives only the built dashboard and the aggregate research dataset.
+
+1. Merge this change into `main`.
+2. In the repository's **Settings → Pages**, set **Build and deployment → Source** to **GitHub Actions**.
+3. In **Actions → Refresh Bluesky dashboard**, choose **Run workflow** on `main`. Open the URL reported by the deployment job after it succeeds.
+
+The workflow also runs every Monday at 14:23 UTC. When collection fails or the sample is empty, deployment is skipped and the previous successful site stays online. GitHub-hosted runners use their own network. A successful deployment requires Bluesky to accept their search requests.
+
+For a local preview of the Pages dashboard, run the following in `dashboard/` with Python 3.12 and Node.js 24. Omit `--demo` to collect live posts on your connection.
+
+```sh
+python -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+npm ci
+.venv/bin/python research.py --demo
+npm run dev
+```
